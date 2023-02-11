@@ -4,7 +4,7 @@ import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
 const ShoppingListInput = ({ visible, onCancel }) => {
   return (
     <Modal animationType="slide" visible={visible}>
-      <View>
+      <View style={styles.container}>
         <Text>What to buy?</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    padding: 40,
+    flexDirection: "column",
   },
   buttonContainer: {
     marginTop: 30,
@@ -44,6 +44,14 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
+    // android  shadow
+    elevation: 8,
+    // ios shadow
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    // common styles
     backgroundColor: "#009688",
     borderRadius: 10,
     paddingVertical: 10,
