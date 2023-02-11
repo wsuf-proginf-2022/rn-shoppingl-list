@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, Button } from "react-native";
+
 import ShoppingListInput from "./components/ShoppingListInput";
 
 const heightY = Dimensions.get("window").height;
 
 export default function App() {
   const [isAddPopupVisible, setIsAddPopupVisible] = useState(false);
+  const [shoppingListItems, setShoppingListItems] = useState([]);
+
+  const addToShoppingList = (item) => {
+    setShoppingListItems([
+      ...shoppingListItems,
+      { key: Math.random().toString(), value: item },
+    ]);
+    // shopingListItems = ['item', 'item']; // wrong
+    // shoppingListItems = [ { key: '2134rwef', value: 'citrom' } ] // correct
+  };
+
+  useEffect(() => {
+    console.log("shoppingListItems: ", shoppingListItems);
+  }, [shoppingListItems]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.appTitle}>Create Shopping List!</Text>
@@ -17,6 +33,7 @@ export default function App() {
       />
       <ShoppingListInput
         visible={isAddPopupVisible}
+        onAdd={addToShoppingList}
         onCancel={() => {
           setIsAddPopupVisible(false);
         }}

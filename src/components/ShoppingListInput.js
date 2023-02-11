@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-const ShoppingListInput = ({ visible, onCancel }) => {
+const ShoppingListInput = ({ visible, onCancel, onAdd }) => {
   const [enteredShoppingListItem, setEnteredShoppingListItem] = useState("");
 
   const inputHandler = (enteredText) => {
@@ -37,6 +37,9 @@ const ShoppingListInput = ({ visible, onCancel }) => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
+              setEnteredShoppingListItem("");
+              onCancel();
+              onAdd(enteredShoppingListItem);
               console.log("adding item..");
             }}
           >
