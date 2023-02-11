@@ -1,11 +1,18 @@
 import React from "react";
-import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Modal,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 
 const ShoppingListInput = ({ visible, onCancel }) => {
   return (
     <Modal animationType="slide" visible={visible}>
       <View style={styles.container}>
-        <Text>What to buy?</Text>
+        <TextInput placeholder="What to buy?" style={styles.textInput} />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -36,6 +43,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+  },
+  textInput: {
+    width: "70%",
+    borderColor: "black",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20,
   },
   buttonContainer: {
     marginTop: 30,
