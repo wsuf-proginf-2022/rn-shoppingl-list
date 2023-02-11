@@ -26,14 +26,19 @@ export default function App() {
     // shoppingListItems = [ { key: '2134rwef', value: 'citrom' } ] // correct
   };
 
-  const deleteFromShoppingList = (key) => {};
+  const deleteFromShoppingList = (key) => {
+    const newShoppingListItems = shoppingListItems.filter(
+      (item) => item.key !== key
+    );
+    setShoppingListItems(newShoppingListItems);
+  };
 
   useEffect(() => {
     console.log("shoppingListItems: ", shoppingListItems);
   }, [shoppingListItems]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.appContainer}>
       <Text style={styles.appTitle}>Create Shopping List!</Text>
       <Button
         title="Add new item"
@@ -65,16 +70,20 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
     padding: 40,
   },
   appTitle: {
     fontSize: heightY * 0.03,
     marginVertical: 30,
     textAlign: "center",
+  },
+  shoppingList: {
+    width: "100%",
+    marginTop: 20,
+    alignSelf: "flex-start",
+    flex: 1,
   },
 });
