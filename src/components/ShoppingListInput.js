@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Modal,
@@ -10,16 +10,24 @@ import {
 
 const ShoppingListInput = ({ visible, onCancel, onAdd }) => {
   const [enteredShoppingListItem, setEnteredShoppingListItem] = useState("");
+  const inputRef = useRef(null);
 
   const inputHandler = (enteredText) => {
     setEnteredShoppingListItem(enteredText);
   };
+
+  useEffect(() => {
+    if (visible) {
+      inputRef.current.focus();
+    }
+  }, [visible]);
 
   return (
     <Modal animationType="slide" visible={visible}>
       <View style={styles.container}>
         <TextInput
           placeholder="What to buy?"
+          ref={inputRef}
           style={styles.textInput}
           onChangeText={inputHandler}
           value={enteredShoppingListItem}
