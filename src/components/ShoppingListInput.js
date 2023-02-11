@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Modal,
@@ -9,15 +9,27 @@ import {
 } from "react-native";
 
 const ShoppingListInput = ({ visible, onCancel }) => {
+  const [enteredShoppingListItem, setEnteredShoppingListItem] = useState("");
+
+  const inputHandler = (enteredText) => {
+    setEnteredShoppingListItem(enteredText);
+  };
+
   return (
     <Modal animationType="slide" visible={visible}>
       <View style={styles.container}>
-        <TextInput placeholder="What to buy?" style={styles.textInput} />
+        <TextInput
+          placeholder="What to buy?"
+          style={styles.textInput}
+          onChangeText={inputHandler}
+          value={enteredShoppingListItem}
+        />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               onCancel();
+              setEnteredShoppingListItem("");
             }}
           >
             <Text style={styles.buttonText}>Cancel</Text>
