@@ -10,6 +10,7 @@ import {
 
 import ShoppingListInput from "./components/ShoppingListInput";
 import ShoppingListItem from "./components/ShoppingListItem";
+import { getShoppingList, storeShoppingList } from "./localStorage";
 
 const heightY = Dimensions.get("window").height;
 
@@ -18,10 +19,12 @@ export default function App() {
   const [shoppingListItems, setShoppingListItems] = useState([]);
 
   const addToShoppingList = (item) => {
-    setShoppingListItems([
+    const newItems = [
       ...shoppingListItems,
       { key: Math.random().toString(), value: item },
-    ]);
+    ];
+    setShoppingListItems(newItems);
+    storeShoppingList(newItems);
     // shopingListItems = ['item', 'item']; // wrong
     // shoppingListItems = [ { key: '2134rwef', value: 'citrom' } ] // correct
   };
@@ -31,7 +34,20 @@ export default function App() {
       (item) => item.key !== key
     );
     setShoppingListItems(newShoppingListItems);
+    storeShoppingList(newShoppingListItems);
   };
+
+  const loadShoppingList = async () => {
+    const storedShoppingList = await getShoppingList();
+    if (storedShoppingList) {
+      console.log("loaded shopping list from local storage");
+      setShoppingListItems(storedShoppingList);
+    }
+  };
+
+  useEffect(() => {
+    loadShoppingList();
+  }, []);
 
   useEffect(() => {
     console.log("shoppingListItems: ", shoppingListItems);
